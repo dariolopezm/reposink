@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Before/After Image Slider</title>
+
+    <!-- CSS inside a <style> tag -->
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            position: relative;
+            width: 600px;
+            height: 400px;
+        }
+
+        .img-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .img-wrapper img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .before {
+            z-index: 1;
+        }
+
+        .after {
+            z-index: 2;
+            clip-path: inset(0 50% 0 0); /* Shows only the left half of the after image initially */
+        }
+
+        .slider {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            width: 80%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="img-wrapper">
+            <img src="https://images.squarespace-cdn.com/content/v1/57cf18ae6b8f5ba693497e1a/8a0d7493-539e-4032-ae13-23086e3f1dcb/IMG_4668neg.jpg?format=2500w" alt="Before Image" class="before">
+            <img src="https://images.squarespace-cdn.com/content/v1/57cf18ae6b8f5ba693497e1a/1a3b26e1-9dd2-4fb7-a77a-cbc3f6080f6d/IMG_4668pos.jpg?format=2500w" alt="After Image" class="after">
+        </div>
+        <input type="range" min="0" max="100" value="50" class="slider" id="slider">
+    </div>
+
+    <!-- JavaScript inside a <script> tag -->
+    <script>
+        const slider = document.getElementById('slider');
+        const afterImage = document.querySelector('.after');
+
+        slider.addEventListener('input', function() {
+            const sliderValue = slider.value;
+            afterImage.style.clipPath = `inset(0 ${100 - sliderValue}% 0 0)`;
+        });
+    </script>
+</body>
+</html>
